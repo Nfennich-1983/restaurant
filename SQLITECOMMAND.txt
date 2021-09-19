@@ -1,0 +1,37 @@
+C:\Users\NZ>cd Documents
+
+C:\Users\NZ\Documents>cd sqlite
+
+
+C:\Users\NZ\Documents\sqlite>sqlite3.exe dcs510.db
+
+sqlite> .databases
+
+main: C:\Users\NZ\Documents\sqlite\dcs510.db r/w
+
+sqlite> . mode csv
+
+sqlite> .import C:/Users/NZ/Documents/ws_mexican_restaurants.csv  restaurants_table
+
+sqlite> .tables
+
+restaurants_table  
+
+sqlite> select * from restaurants_table where Rating >= 4.5
+
+
+1,1,"Antojitos Las Delicias",5,49,"1521 E 5th St , Winston-Salem , 27101 , US","(336) 499-0813"
+2,2,"Taqueria Los Juanes",5,28,"373 Jonestown Rd , Winston-Salem , 27104 , US","(336) 768-2008"
+3,3,"Taco Rico Taqueria",5,15,"631 E Sprague St , Winston-Salem , 27107 , US","(336) 893-5599"
+4,4,"Taqueria el sabroso",5,9,"4014 Cherry St , Winston-Salem , 27105 , US",""
+5,5,"El Rancho Taqueria",4.5,206,"613 E Sprague St , Winston-Salem , 27107 , US","(336) 785-9112"
+6,6,"La Casa Lopez Mexican Grill",4.5,116,"3028 Healy Dr , Winston-Salem , 27103 , US","(336) 293-8983"
+7,7,"Arriba Villa Taqueria and Mexican Food",4.5,36,"3040 University Pkwy , Winston-Salem , 27105 , US","(336) 830-8125"
+8,8,"El Rey Del Taco",4.5,24,"1225 W Clemmonsville Rd , Winston-Salem , 27127 , US","(336) 788-4754"
+9,9,"El Triunfo Restaurant",4.5,28,"7842 N Point Blvd , Winston Salem , 27106 , US","(336) 896-8600"
+10,10,"Taqueria Lucianos",4.5,20,"3230 Reynolda Rd , Winston-Salem , 27106 , US","(336) 448-5196"
+
+It is not working because Of the name of the table 
+
+sqlite> select rank,Name,Rating,Phone Number from restaurants_table where Rating >=4.5;
+Error: no such column: Phone
