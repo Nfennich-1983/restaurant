@@ -59,10 +59,8 @@ restaurants<- restaurants%>%
   rename('Review Count'= review_count)%>%
   arrange(desc(Rating)) %>%
   mutate(rank = 1:nrow(restaurants))%>%
-  filter(rank<=10 &  review_count > 30  )%>%
+  filter(rank<=10 &  'Review Count' > 30  )%>%
   select(rank,Name, Rating,'Review Count' ,Address,'phone Number')
-
-
 
 
 # Print the result 
