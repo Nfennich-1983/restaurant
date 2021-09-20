@@ -51,7 +51,7 @@ restaurants<-flatten(response_data$businesses)
 
 
 restaurants<- restaurants%>% 
-  mutate(address=paste(location.address1,"," ,location.city,",",location.zip_code,",", location.country))%>% 
+  rename(Address= location.display_address)%>%
   rename('phone Number'= display_phone)%>%
   rename(Rating= rating)%>%
   rename(Name= name)%>%
@@ -59,8 +59,11 @@ restaurants<- restaurants%>%
   rename('Review Count'= review_count)%>%
   arrange(desc(Rating)) %>%
   mutate(rank = 1:nrow(restaurants))%>%
-  filter(rank<=10)%>%
+  filter(rank<=10 &  review_count > 30  )%>%
   select(rank,Name, Rating,'Review Count' ,Address,'phone Number')
+
+
+
 
 # Print the result 
 print(restaurants)
