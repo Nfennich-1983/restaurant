@@ -17,5 +17,5 @@ sqlite> .tables
 
 restaurants_table  
 
-sqlite> select rank,Name, Rating,'phone Number' from restaurants_table where Rating >= 4.5
+sqlite> select Rank,Name, Rating, "phone Number" from restaurants_table where Rating >= 4.5
 

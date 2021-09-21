@@ -51,16 +51,19 @@ restaurants<-flatten(response_data$businesses)
 
 
 restaurants<- restaurants%>% 
-  rename(Address= location.display_address)%>%
-  rename('phone Number'= display_phone)%>%
-  rename(Rating= rating)%>%
-  rename(Name= name)%>%
-  rename(Address= address)%>%
-  rename('Review Count'= review_count)%>%
-  arrange(desc(Rating)) %>%
-  mutate(rank = 1:nrow(restaurants))%>%
-  filter(rank<=10 &  'Review Count' > 30  )%>%
-  select(rank,Name, Rating,'Review Count' ,Address,'phone Number')
+  mutate("Address"= paste0(location.address1, location.city, location.zip_code, location.state))%>%
+  mutate("phone Number"= display_phone)%>%
+  mutate("Rating"= rating)%>%
+  mutate("Name"= name)%>%
+  mutate("Review Count"= review_count)%>%
+  mutate(Rank = row_number()) %>%
+  filter( review_count >= 30 , Rank < 10 )%>%
+  arrange(desc(rating)) %>%
+  select(Rank,Name, Rating,'Review Count' ,"Address",'phone Number')
+
+
+
+
 
 
 # Print the result 
@@ -68,9 +71,10 @@ print(restaurants)
 
 # save the result into CSV file 
 
-write.csv(restaurants,'ws_mexican_restaurants.csv')
+write.csv(restaurants,'ws_mexican_restaurants.csv', row.names = FALSE)
 
 # create connection R and SQLite
+
 db_connection <-dbConnect(SQLite(),dbname ="C:/Users/NZ/Documents/sqlite/dcs510.db")
 
 dbListTables(db_connection)
@@ -82,7 +86,7 @@ restaurant_T<-tbl(db_connection,"restaurants_table")
 restaurant_T
 
 #Pipe to select the desire Query
-rating<- restaurant_T %>% filter(rating>=4.5)%>% select(rank,Name,Rating ,`phone Number`)
+rating<- restaurant_T %>% filter(rating>=4.5)%>% select(Rank,Name,Rating ,`phone Number`)
 
 #Print result 
 
